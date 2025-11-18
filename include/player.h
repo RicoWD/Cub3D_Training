@@ -1,45 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/17 11:50:06 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/18 14:47:38 by erpascua         ###   ########.fr       */
+/*   Created: 2025/11/18 11:09:08 by erpascua          #+#    #+#             */
+/*   Updated: 2025/11/18 14:48:37 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef PLAYER_H
+# define PLAYER_H
 
-# include "libft.h"
-# include "player.h"
-# include <mlx.h>
-
-typedef struct	s_img
+typedef struct	s_player
 {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}				t_img;
-
-typedef struct	s_map
-{
-	char	**grid;
-	int		width;
-	int		height;
-}				t_map;
-
-typedef struct	s_cub
-{
-	void			*mlx;
-	void			*win;
-	t_img			img;
-	t_player		player;
-	t_map			map;		
-}				t_cub;
+	float	x_pos;
+	float	y_pos;
+}				t_player;
 
 #endif
