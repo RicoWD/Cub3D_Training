@@ -1,0 +1,64 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/19 14:30:00 by erpascua          #+#    #+#             */
+/*   Updated: 2025/11/19 16:02:44 by erpascua         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3D.h"
+#include <stdlib.h>
+
+void	init_map(t_cub *cub)
+{
+	int		i;
+	char	*map_data[] = {
+		"11111111111111111111",
+		"10000000000000000001",
+		"10000000000000000001",
+		"10000111111110000001",
+		"10000100000010000001",
+		"10000100N00010000001",
+		"10000100000010000001",
+		"10000111111110000001",
+		"10000000000000000001",
+		"10000000000000000001",
+		"11111111111111111111",
+		NULL
+	};
+
+	cub->map.height = 0;
+	while (map_data[cub->map.height])
+		cub->map.height++;
+	cub->map.width = ft_strlen(map_data[0]);
+	cub->map.grid = malloc(sizeof(char *) * (cub->map.height + 1));
+	i = 0;
+	while (i < cub->map.height)
+	{
+		cub->map.grid[i] = ft_strdup(map_data[i]);
+		i++;
+	}
+	cub->map.grid[i] = NULL;
+	i = 0;
+	while (i < cub->map.height)
+	{
+		int j = 0;
+		while (j < cub->map.width)
+		{
+			if (cub->map.grid[i][j] == 'N' || cub->map.grid[i][j] == 'S' ||
+				cub->map.grid[i][j] == 'E' || cub->map.grid[i][j] == 'W')
+			{
+				cub->player.x_pos = j * 20 + 10;
+				cub->player.y_pos = i * 20 + 10;
+				cub->map.grid[i][j] = '0';
+				return;
+			}
+			j++;
+		}
+		i++;
+	}
+}

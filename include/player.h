@@ -6,7 +6,7 @@
 /*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 11:09:08 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/18 14:48:37 by erpascua         ###   ########.fr       */
+/*   Updated: 2025/11/19 18:08:47 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 typedef struct	s_player
 {
-	float	x_pos;
-	float	y_pos;
+	double	x_pos;
+	double	y_pos;
+	double	player_dir;
 }				t_player;
 
 #endif

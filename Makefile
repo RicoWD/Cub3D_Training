@@ -6,7 +6,7 @@
 #    By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/14 02:58:34 by erpascua          #+#    #+#              #
-#    Updated: 2025/11/17 15:08:48 by erpascua         ###   ########.fr        #
+#    Updated: 2025/11/19 14:20:26 by erpascua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,16 +17,20 @@
 
 NAME		= 	cub3D
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -Iinclude -I$(LIBFT_DIR) -I$(MLX_DIR) -MMD -MP -g
-LDFLAGS		=	-L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+CFLAGS		=	-Wall -Wextra -Werror -Iinclude -I$(LIBFT_DIR) -I$(MLX_DIR) -g
 
 RM			=	/bin/rm -f
 
 LIBFT_DIR	=	libft
 LIBFT       =	$(LIBFT_DIR)/libft.a
 
-MLX_DIR		=	minilibx_macos
-MLX			=	$(MLX_DIR)/libmlx.dylib
+# MLX_DIR		=	minilibx_macos
+# MLX			=	$(MLX_DIR)/libmlx.dylib
+
+MLX_DIR		=	minilibx-linux
+MLX_SSH		=	git@github.com:42paris/minilibx-linux.git
+MLX			=	$(MLX_DIR)/libmlx.a
+MLX_FLAGS	=	-L./$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 SRCS        = 	$(shell find src -type f -name "*.c")
 
@@ -49,8 +53,7 @@ $(MLX):
 	@$(MAKE) -C $(MLX_DIR) 1>/dev/null
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) $(LDFLAGS)
-	@install_name_tool -change libmlx.dylib @executable_path/$(MLX_DIR)/libmlx.dylib $(NAME)
+	@$(CC) $(OBJS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
 	@echo "✅ $(NAME) built"
 
 $(OBJ_DIR)/src/%.o: src/%.c
@@ -59,7 +62,7 @@ $(OBJ_DIR)/src/%.o: src/%.c
 
 clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean 1>/dev/null
-	@$(MAKE) -C $(MLX_DIR) clean 1>/dev/null
+	@if [ -d "$(MLX_DIR)" ]; then $(MAKE) -C $(MLX_DIR) clean 1>/dev/null; fi
 	@$(RM) -rf $(OBJ_DIR)
 	@echo "✅  Objects files deleted"
 
@@ -72,6 +75,15 @@ re: fclean all
 
 val: all
 	valgrind --leak-check=full --track-origins=yes --track-fds=yes --show-leak-kinds=all -s ./$(NAME)
+
+minilibx:
+	@if [ ! -d "$(MLX_DIR)" ]; then \
+		git clone $(MLX_SSH); \
+		echo "✅ Minilibx cloned"; \
+	else \
+		echo "Minilibx yet present"; \
+	fi
+	$(MAKE) -C $(MLX_DIR)
 
 dev:
 	@make re 1>/dev/null

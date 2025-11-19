@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ep <ep@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 11:50:06 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/19 02:39:27 by ep               ###   ########.fr       */
+/*   Updated: 2025/11/19 15:34:01 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "player.h"
 # include <mlx.h>
 
-/* Key codes pour macOS */
 # ifdef __APPLE__
 #  define KEY_ESC 53
 #  define KEY_W 13
@@ -29,7 +28,6 @@
 #  define KEY_LEFT 123
 #  define KEY_RIGHT 124
 # else
-/* Key codes pour Linux */
 #  define KEY_ESC 65307
 #  define KEY_W 119
 #  define KEY_A 97
@@ -41,7 +39,6 @@
 #  define KEY_RIGHT 65363
 # endif
 
-/* Couleurs */
 # define COLOR_RED 0x00FF0000
 # define COLOR_WHITE 0x00FFFFFF
 # define COLOR_BLACK 0x00000000
@@ -72,13 +69,14 @@ typedef struct	s_cub
 	t_map			map;		
 }				t_cub;
 
-/* Fonctions de dessin */
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	draw_square(t_img *img, int x, int y, int size, int color);
+void	draw_map(t_cub *cub);
 void	render(t_cub *cub);
 
-/* Gestion des événements */
 int		key_press(int keycode, t_cub *cub);
 int		close_window(t_cub *cub);
+
+void	init_map(t_cub *cub);
 
 #endif
