@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ep <ep@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 14:23:04 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/17 16:02:12 by erpascua         ###   ########.fr       */
+/*   Updated: 2025/11/19 02:23:22 by ep               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,36 @@
 
 int	main(int ac, char **av)
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
+	t_cub	cub;
 
 	(void)ac;
 	(void)av;
-	mlx = mlx_init();
+	/* Initialisation de la MLX */
+	cub.mlx = mlx_init();
 	ft_fprintf(1, "STEP 0: mlx_init done\n");
-	win = mlx_new_window(mlx, 800, 600, "Cub3D");
+	cub.win = mlx_new_window(cub.mlx, 800, 600, "Cub3D");
 	ft_fprintf(1, "STEP 1: mlx_new_window done\n");
-	img = mlx_new_image(mlx, 800, 600);
+	
+	/* Initialisation de l'image */
+	cub.img.img = mlx_new_image(cub.mlx, 800, 600);
 	ft_fprintf(1, "STEP 2: mlx_new_image done\n");
-	addr = mlx_get_data_addr(img, &bpp, &line_len, &endian);
-	(void)addr;
-	mlx_put_image_to_window(mlx, win, img, 0, 0);
-	ft_fprintf(1, "STEP 3: mlx_put_image_to_window done\n");
+	cub.img.addr = mlx_get_data_addr(cub.img.img, &cub.img.bpp, 
+		&cub.img.line_len, &cub.img.endian);
+	
+	/* Initialisation du joueur (centre de l'écran) */
+	cub.player.x_pos = 400;
+	cub.player.y_pos = 300;
+	
+	/* Premier rendu */
+	render(&cub);
+	ft_fprintf(1, "STEP 3: Initial render done\n");
+	
+	/* Configuration des événements */
+	mlx_hook(cub.win, 2, 1L<<0, key_press, &cub);
+	mlx_hook(cub.win, 17, 0, close_window, &cub);
+	
 	ft_fprintf(1, "PROGRAM LAUNCHED\n");
-	mlx_loop(mlx);
+	ft_fprintf(1, "Utilisez les fleches ou WASD pour deplacer le point rouge\n");
+	ft_fprintf(1, "Appuyez sur ESC pour quitter\n");
+	mlx_loop(cub.mlx);
 }

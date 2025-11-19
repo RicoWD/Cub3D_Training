@@ -17,16 +17,16 @@
 
 NAME		= 	cub3D
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -Iinclude -I$(LIBFT_DIR) -Iminilibx-linux -MMD -MP -g
-LDFLAGS		=	-Lminilibx-linux -lmlx -lXext -lX11 -lm
+CFLAGS		=	-Wall -Wextra -Werror -Iinclude -I$(LIBFT_DIR) -I$(MLX_DIR) -MMD -MP -g
+LDFLAGS		=	-L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 
 RM			=	/bin/rm -f
 
 LIBFT_DIR	=	libft
 LIBFT       =	$(LIBFT_DIR)/libft.a
 
-MLX_DIR		=	minilibx-linux
-MLX			=	$(MLX_DIR)/libmlx.a
+MLX_DIR		=	minilibx_macos
+MLX			=	$(MLX_DIR)/libmlx.dylib
 
 SRCS        = 	$(shell find src -type f -name "*.c")
 
@@ -50,6 +50,7 @@ $(MLX):
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) $(LDFLAGS)
+	@install_name_tool -change libmlx.dylib @executable_path/$(MLX_DIR)/libmlx.dylib $(NAME)
 	@echo "✅ $(NAME) built"
 
 $(OBJ_DIR)/src/%.o: src/%.c
