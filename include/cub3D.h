@@ -6,7 +6,7 @@
 /*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 11:50:06 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/19 15:34:01 by erpascua         ###   ########.fr       */
+/*   Updated: 2025/11/21 21:27:41 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@
 #  define KEY_DOWN 65364
 #  define KEY_LEFT 65361
 #  define KEY_RIGHT 65363
+# endif
+
+# define _USE_MATH_DEFINES
+# define _GNU_SOURCE
+
+# ifndef M_PI
+# 	define M_PI 3.14159265358979323846
 # endif
 
 # define COLOR_RED 0x00FF0000
