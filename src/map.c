@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 14:30:00 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/19 16:02:44 by erpascua         ###   ########.fr       */
+/*   Updated: 2025/11/24 02:27:50 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ void	init_map(t_cub *cub)
 			{
 				cub->player.x_pos = j * 20 + 10;
 				cub->player.y_pos = i * 20 + 10;
+				cub->player.angle = 0.0;        // Angle vertical (regard haut/bas)
+				cub->player.fov = 1.0;          // Champ de vision normal
+				cub->player.player_dir = 0.0;   // Direction horizontale (Nord)
 				cub->map.grid[i][j] = '0';
 				return;
 			}

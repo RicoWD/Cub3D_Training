@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 11:50:06 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/21 21:27:41 by erpascua         ###   ########.fr       */
+/*   Updated: 2025/11/24 01:58:49 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 #  define KEY_DOWN 125
 #  define KEY_LEFT 123
 #  define KEY_RIGHT 124
+#  define KEY_Q 12
+#  define KEY_E 14
+#  define KEY_R 15
+#  define KEY_F 3
 # else
 #  define KEY_ESC 65307
 #  define KEY_W 119
@@ -37,6 +41,10 @@
 #  define KEY_DOWN 65364
 #  define KEY_LEFT 65361
 #  define KEY_RIGHT 65363
+#  define KEY_Q 113
+#  define KEY_E 101
+#  define KEY_R 114
+#  define KEY_F 102
 # endif
 
 # define _USE_MATH_DEFINES

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+         #
+#    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/14 02:58:34 by erpascua          #+#    #+#              #
-#    Updated: 2025/11/19 14:20:26 by erpascua         ###   ########.fr        #
+#    Updated: 2025/11/24 01:51:08 by ubuntu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,11 @@ $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) 1>/dev/null
 
 $(MLX):
+	@if [ ! -d "$(MLX_DIR)" ]; then \
+		echo "🔄 Cloning minilibx-linux..."; \
+		git clone $(MLX_SSH); \
+		echo "✅ Minilibx cloned"; \
+	fi
 	@$(MAKE) -C $(MLX_DIR) 1>/dev/null
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)

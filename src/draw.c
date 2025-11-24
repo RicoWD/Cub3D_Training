@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 00:00:00 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/21 21:26:44 by erpascua         ###   ########.fr       */
+/*   Updated: 2025/11/24 02:28:05 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ void	draw_fov(t_cub *cub)
 		line_length = screen_width;
 	else
 		line_length = screen_height;
-	angle_rad_p = (cub->player.angle + 22.5) * M_PI / 180.0;
+	angle_rad_p = (cub->player.player_dir + cub->player.angle + 22.5) * M_PI / 180.0;
 	end_x_p = (int)(cub->player.x_pos + cos(angle_rad_p) * line_length);
 	end_y_p = (int)(cub->player.y_pos + sin(angle_rad_p) * line_length);
-	angle_rad_m = (cub->player.angle - 22.5) * M_PI / 180.0;
+	angle_rad_m = (cub->player.player_dir + cub->player.angle - 22.5) * M_PI / 180.0;
 	end_x_m = (int)(cub->player.x_pos + cos(angle_rad_m) * line_length);
 	end_y_m = (int)(cub->player.y_pos + sin(angle_rad_m) * line_length);
 	draw_line(cub, end_x_p, end_y_p, COLOR_RED);
