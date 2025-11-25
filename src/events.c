@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 00:00:00 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/24 02:35:45 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/11/25 19:41:30 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	key_press(int keycode, t_cub *cub)
 	move_speed = 5;
 	fov_change = 0.05;
 	angle_change = 5.0;
-	
 	if (keycode == KEY_ESC)
 		close_window(cub);
 	else if (keycode == KEY_W)
@@ -60,14 +59,16 @@ int	key_press(int keycode, t_cub *cub)
 	}
 	else if (keycode == KEY_LEFT)
 	{
-		cub->player.player_dir -= angle_change;
+		printf("PLAYER_DIR |%f|", cub->player.player_dir);
+		cub->player.player_dir -= 5;
 		if (cub->player.player_dir < 0)
 			cub->player.player_dir += 360.0;
 		printf("LEFT: player_dir=%.1f°\n", cub->player.player_dir);
 	}
 	else if (keycode == KEY_RIGHT)
 	{
-		cub->player.player_dir += angle_change;
+		printf("PLAYER_DIR |%f|", cub->player.player_dir);
+		cub->player.player_dir += 5;
 		if (cub->player.player_dir >= 360.0)
 			cub->player.player_dir -= 360.0;
 		printf("RIGHT: player_dir=%.1f°\n", cub->player.player_dir);

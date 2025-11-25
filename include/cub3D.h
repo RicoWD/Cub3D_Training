@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 11:50:06 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/24 01:58:49 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/11/25 14:46:29 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "player.h"
 # include <mlx.h>
+# include <stdio.h>
 
 # ifdef __APPLE__
 #  define KEY_ESC 53
@@ -54,6 +55,12 @@
 # 	define M_PI 3.14159265358979323846
 # endif
 
+# define ANGLE M_PI_4
+
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 600
+
+
 # define COLOR_RED 0x00FF0000
 # define COLOR_WHITE 0x00FFFFFF
 # define COLOR_BLACK 0x00000000
@@ -81,7 +88,7 @@ typedef struct	s_cub
 	void			*win;
 	t_img			img;
 	t_player		player;
-	t_map			map;		
+	t_map			map;
 }				t_cub;
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
