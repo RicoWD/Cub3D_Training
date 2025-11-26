@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 00:00:00 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/26 03:48:26 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/11/26 16:26:33 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_square(t_img *img, int x, int y, int size, int color)
 	}
 }
 
-void	draw_line(t_cub *cub, int end_x, int end_y, int color)
+double	draw_line(t_cub *cub, int end_x, int end_y, int color)
 {
 	double	dx;
 	double	dy;
@@ -57,7 +57,7 @@ void	draw_line(t_cub *cub, int end_x, int end_y, int color)
 
 	dx = end_x - cub->player.x_pos;
 	dy = end_y - cub->player.y_pos;
-	steps = fabs(dy);
+	steps = fabs(dx);
 	dx = dx / steps;
 	dy = dy / steps;
 	x = cub->player.x_pos;
@@ -79,6 +79,10 @@ void	draw_line(t_cub *cub, int end_x, int end_y, int color)
 		y += dy;
 		i++;
 	}
+	dx = x - cub->player.x_pos;
+	dy = y - cub->player.y_pos;
+	double distance = sqrt(dx * dx + dy * dy);
+	return (distance);
 }
 
 void	draw_fov(t_cub *cub)
@@ -89,7 +93,7 @@ void	draw_fov(t_cub *cub)
 	int		tmp_endy;
 	double	base_angle;
 
-	double	increment = (ANGLE * 2) / WIN_WIDTH;
+	double	increment = ANGLE / WIN_WIDTH;
 	base_angle = (cub->player.player_dir * M_PI / 180.0) + (cub->player.angle * M_PI / 180.0);
 	angle_rad_p = base_angle + (ANGLE / 2);
 	angle_rad_m = base_angle - (ANGLE / 2);
@@ -97,7 +101,8 @@ void	draw_fov(t_cub *cub)
 	{
 		tmp_endx = (int)(cub->player.x_pos + cos(angle_rad_m) * WIN_WIDTH);
 		tmp_endy = (int)(cub->player.y_pos + sin(angle_rad_m) * WIN_WIDTH);
-		draw_line(cub, tmp_endx, tmp_endy, COLOR_RED);
+		double tmp = draw_line(cub, tmp_endx, tmp_endy, COLOR_RED);
+		printf("Line distance : |%f|\n", tmp);
 		angle_rad_m += increment;
 	}
 }

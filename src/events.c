@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 00:00:00 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/26 03:56:45 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/11/26 11:25:46 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int	is_valid_position(t_cub *cub, double x, double y)
 {
 	int	map_x;
 	int	map_y;
-	
+
 	map_x = (int)x / 20;
 	map_y = (int)y / 20;
-	if (map_x < 0 || map_x >= cub->map.width || 
-	    map_y < 0 || map_y >= cub->map.height)
+	if (map_x < 0 || map_x >= cub->map.width
+		|| map_y < 0 || map_y >= cub->map.height)
 		return (0);
 	if (cub->map.grid[map_y][map_x] == '1')
 		return (0);
