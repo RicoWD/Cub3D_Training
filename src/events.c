@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 00:00:00 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/25 19:41:30 by erpascua         ###   ########.fr       */
+/*   Updated: 2025/11/26 02:45:17 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,52 +26,53 @@ int	close_window(t_cub *cub)
 int	key_press(int keycode, t_cub *cub)
 {
 	int		move_speed;
-	double	fov_change;
-	double	angle_change;
+	double	player_angle_rad;
+	double	move_x;
+	double	move_y;
 
-	move_speed = 5;
-	fov_change = 0.05;
-	angle_change = 5.0;
+	move_speed = 5;	
+	player_angle_rad = cub->player.player_dir * M_PI / 180.0;
 	if (keycode == KEY_ESC)
 		close_window(cub);
 	else if (keycode == KEY_W)
-		cub->player.y_pos -= move_speed;
-	else if (keycode == KEY_S)
-		cub->player.y_pos += move_speed;
-	else if (keycode == KEY_A)
-		cub->player.x_pos -= move_speed;
-	else if (keycode == KEY_D)
-		cub->player.x_pos += move_speed;
-	
-	else if (keycode == KEY_UP)
 	{
-		cub->player.fov = fmax(0.3, cub->player.fov - fov_change);
-		if (cub->player.angle > -45.0)
-			cub->player.angle -= angle_change;
-		printf("UP: angle=%.1f°, fov=%.2f\n", cub->player.angle, cub->player.fov);
+		move_x = cos(player_angle_rad) * move_speed;
+		move_y = sin(player_angle_rad) * move_speed;
+		cub->player.x_pos += move_x;
+		cub->player.y_pos += move_y;
 	}
-	else if (keycode == KEY_DOWN)
+	else if (keycode == KEY_S)
 	{
-		cub->player.fov = fmin(2.5, cub->player.fov + fov_change);
-		if (cub->player.angle < 45.0)
-			cub->player.angle += angle_change;
-		printf("DOWN: angle=%.1f°, fov=%.2f\n", cub->player.angle, cub->player.fov);
+		move_x = cos(player_angle_rad) * move_speed;
+		move_y = sin(player_angle_rad) * move_speed;
+		cub->player.x_pos -= move_x;
+		cub->player.y_pos -= move_y;
+	}
+	else if (keycode == KEY_A)
+	{
+		move_x = cos(player_angle_rad - M_PI/2) * move_speed;
+		move_y = sin(player_angle_rad - M_PI/2) * move_speed;
+		cub->player.x_pos += move_x;
+		cub->player.y_pos += move_y;
+	}
+	else if (keycode == KEY_D)
+	{
+		move_x = cos(player_angle_rad + M_PI/2) * move_speed;
+		move_y = sin(player_angle_rad + M_PI/2) * move_speed;
+		cub->player.x_pos += move_x;
+		cub->player.y_pos += move_y;
 	}
 	else if (keycode == KEY_LEFT)
 	{
-		printf("PLAYER_DIR |%f|", cub->player.player_dir);
-		cub->player.player_dir -= 5;
+		cub->player.player_dir -= 1.0;
 		if (cub->player.player_dir < 0)
 			cub->player.player_dir += 360.0;
-		printf("LEFT: player_dir=%.1f°\n", cub->player.player_dir);
 	}
 	else if (keycode == KEY_RIGHT)
 	{
-		printf("PLAYER_DIR |%f|", cub->player.player_dir);
-		cub->player.player_dir += 5;
+		cub->player.player_dir += 1.0;
 		if (cub->player.player_dir >= 360.0)
 			cub->player.player_dir -= 360.0;
-		printf("RIGHT: player_dir=%.1f°\n", cub->player.player_dir);
 	}
 	if (cub->player.x_pos < 10)
 		cub->player.x_pos = 10;

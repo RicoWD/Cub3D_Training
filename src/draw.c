@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 00:00:00 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/25 14:45:53 by erpascua         ###   ########.fr       */
+/*   Updated: 2025/11/26 03:36:37 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	draw_line(t_cub *cub, int end_x, int end_y, int color)
 	double	x;
 	double	y;
 	int		i;
+	int		map_x;
+	int		map_y;
 
 	dx = end_x - cub->player.x_pos;
 	dy = end_y - cub->player.y_pos;
@@ -64,9 +66,18 @@ void	draw_line(t_cub *cub, int end_x, int end_y, int color)
 	x = cub->player.x_pos;
 	y = cub->player.y_pos;
 	i = 0;
-	while (i <= WIN_WIDTH)
+	while (i <= (int)steps)
 	{
-		my_mlx_pixel_put(&cub->img, (int)x, (int)y, color);
+		map_x = (int)x / 20;
+		map_y = (int)y / 20;
+		if (map_x >= 0 && map_x < cub->map.width && 
+		    map_y >= 0 && map_y < cub->map.height)
+		{
+			if (cub->map.grid[map_y][map_x] == '1')
+				break;
+		}
+		if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
+			my_mlx_pixel_put(&cub->img, (int)x, (int)y, color);
 		x += dx;
 		y += dy;
 		i++;
@@ -77,15 +88,14 @@ void	draw_fov(t_cub *cub)
 {
 	double	angle_rad_p;
 	double	angle_rad_m;
-	double	tmp;
 	int		tmp_endx;
 	int		tmp_endy;
+	double	base_angle;
 
 	double	increment = (ANGLE * 2) / WIN_WIDTH;
-	angle_rad_p = (cub->player.angle + (ANGLE / 2));
-	angle_rad_m = (cub->player.angle - (ANGLE / 2));
-	tmp = angle_rad_m;
-	printf("rad_m |%f| * rad_p |%f|\n", angle_rad_m, angle_rad_p);
+	base_angle = (cub->player.player_dir * M_PI / 180.0) + (cub->player.angle * M_PI / 180.0);
+	angle_rad_p = base_angle + (ANGLE / 2);
+	angle_rad_m = base_angle - (ANGLE / 2);
 	while (angle_rad_m <= angle_rad_p)
 	{
 		tmp_endx = (int)(cub->player.x_pos + cos(angle_rad_m) * WIN_WIDTH);
@@ -93,7 +103,6 @@ void	draw_fov(t_cub *cub)
 		draw_line(cub, tmp_endx, tmp_endy, COLOR_RED);
 		angle_rad_m += increment;
 	}
-	printf("INCRE:ENT |%f|\n", increment);
 }
 
 void	draw_map(t_cub *cub)
