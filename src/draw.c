@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 00:00:00 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/26 03:36:37 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/11/26 03:48:26 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ void	draw_line(t_cub *cub, int end_x, int end_y, int color)
 
 	dx = end_x - cub->player.x_pos;
 	dy = end_y - cub->player.y_pos;
-	if (fabs(dx) > fabs(dy))
-		steps = fabs(dx);
-	else
-		steps = fabs(dy);
+	steps = fabs(dy);
 	dx = dx / steps;
 	dy = dy / steps;
 	x = cub->player.x_pos;
