@@ -6,7 +6,7 @@
 /*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 00:00:00 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/26 16:26:33 by erpascua         ###   ########.fr       */
+/*   Updated: 2025/11/27 11:41:27 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,7 @@ void	draw_fov(t_cub *cub)
 	{
 		tmp_endx = (int)(cub->player.x_pos + cos(angle_rad_m) * WIN_WIDTH);
 		tmp_endy = (int)(cub->player.y_pos + sin(angle_rad_m) * WIN_WIDTH);
-		double tmp = draw_line(cub, tmp_endx, tmp_endy, COLOR_RED);
-		printf("Line distance : |%f|\n", tmp);
+		draw_line(cub, tmp_endx, tmp_endy, COLOR_RED);
 		angle_rad_m += increment;
 	}
 }
