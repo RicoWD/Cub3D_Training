@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 00:00:00 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/27 11:41:27 by erpascua         ###   ########.fr       */
+/*   Updated: 2025/11/28 02:15:56 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,14 @@ double	draw_line(t_cub *cub, int end_x, int end_y, int color)
 	return (distance);
 }
 
-void	draw_fov(t_cub *cub)
+double	draw_fov(t_cub *cub)
 {
 	double	angle_rad_p;
 	double	angle_rad_m;
 	int		tmp_endx;
 	int		tmp_endy;
 	double	base_angle;
+	double	distance;
 
 	double	increment = ANGLE / WIN_WIDTH;
 	base_angle = (cub->player.player_dir * M_PI / 180.0) + (cub->player.angle * M_PI / 180.0);
@@ -101,9 +102,10 @@ void	draw_fov(t_cub *cub)
 	{
 		tmp_endx = (int)(cub->player.x_pos + cos(angle_rad_m) * WIN_WIDTH);
 		tmp_endy = (int)(cub->player.y_pos + sin(angle_rad_m) * WIN_WIDTH);
-		draw_line(cub, tmp_endx, tmp_endy, COLOR_RED);
+		distance = draw_line(cub, tmp_endx, tmp_endy, COLOR_RED);
 		angle_rad_m += increment;
 	}
+	return (distance);
 }
 
 void	draw_map(t_cub *cub)

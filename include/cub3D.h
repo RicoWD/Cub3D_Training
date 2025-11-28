@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 11:50:06 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/25 19:52:16 by erpascua         ###   ########.fr       */
+/*   Updated: 2025/11/28 02:17:03 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "player.h"
 # include <mlx.h>
 # include <stdio.h>
+# include <stdbool.h>
+
 
 # ifdef __APPLE__
 #  define KEY_ESC 53
@@ -60,11 +62,12 @@
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
 
-
 # define COLOR_RED 0x00FF0000
 # define COLOR_WHITE 0x00FFFFFF
 # define COLOR_BLACK 0x00000000
 # define COLOR_GOLD 0x00FFD700
+
+# define FOV_ANGLE (60.0 * M_PI / 180.0)
 
 typedef struct	s_img
 {
@@ -91,9 +94,19 @@ typedef struct	s_cub
 	t_map			map;
 }				t_cub;
 
+typedef struct s_ray
+{
+    double	distance;
+    bool	hit_wall;      // 1 si on a touché un mur, 0 sinon
+    double	hit_x;         // Position X du hit
+    double	hit_y;         // Position Y du hit
+    int		side;          // Quel côté du mur (N/S/E/W)
+}               t_ray;
+
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	draw_square(t_img *img, int x, int y, int size, int color);
 void	draw_map(t_cub *cub);
+double	draw_fov(t_cub *cub);
 void	render(t_cub *cub);
 
 int		key_press(int keycode, t_cub *cub);
