@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: erpascua <erpascua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 11:50:06 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/28 02:17:03 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/11/28 17:16:47 by erpascua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,10 @@ typedef struct	s_cub
 typedef struct s_ray
 {
     double	distance;
-    bool	hit_wall;      // 1 si on a touché un mur, 0 sinon
-    double	hit_x;         // Position X du hit
-    double	hit_y;         // Position Y du hit
-    int		side;          // Quel côté du mur (N/S/E/W)
+    bool	hit_wall;
+    double	hit_x;
+    double	hit_y;
+    int		side;
 }               t_ray;
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
@@ -108,6 +108,9 @@ void	draw_square(t_img *img, int x, int y, int size, int color);
 void	draw_map(t_cub *cub);
 double	draw_fov(t_cub *cub);
 void	render(t_cub *cub);
+void	render_3d(t_cub *cub);
+t_ray	raycaster(t_cub *cub, double ray_angle);
+void	draw_column(t_cub *cub, t_ray *ray, int x);
 
 int		key_press(int keycode, t_cub *cub);
 int		close_window(t_cub *cub);
