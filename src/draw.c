@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 00:00:00 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/28 02:15:56 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/12/02 01:47:18 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ double	draw_line(t_cub *cub, int end_x, int end_y, int color)
 	i = 0;
 	while (i <= (int)steps)
 	{
-		map_x = (int)x / 20;
-		map_y = (int)y / 20;
+		map_x = (int)x / TILE_SIZE;
+		map_y = (int)y / TILE_SIZE;
 		if (map_x >= 0 && map_x < cub->map.width && 
 		    map_y >= 0 && map_y < cub->map.height)
 		{
@@ -135,23 +135,24 @@ void	draw_map(t_cub *cub)
 
 void	render(t_cub *cub)
 {
-	int	i;
-	int	j;
+	render_3d(cub);
+	// int	i;
+	// int	j;
 
-	i = 0;
-	while (i < WIN_WIDTH)
-	{
-		j = 0;
-		while (j < WIN_WIDTH)
-		{
-			my_mlx_pixel_put(&cub->img, j, i, COLOR_GOLD);
-			j++;
-		}
-		i++;
-	}
-	draw_map(cub);
-	draw_fov(cub);
-	my_mlx_pixel_put(&cub->img, (int)cub->player.x_pos, (int)cub->player.y_pos,
-		COLOR_RED);
-	mlx_put_image_to_window(cub->mlx, cub->win, cub->img.img, 0, 0);
+	// i = 0;
+	// while (i < WIN_WIDTH)
+	// {
+	// 	j = 0;
+	// 	while (j < WIN_WIDTH)
+	// 	{
+	// 		my_mlx_pixel_put(&cub->img, j, i, COLOR_GOLD);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
+	// draw_map(cub);
+	// draw_fov(cub);
+	// my_mlx_pixel_put(&cub->img, (int)cub->player.x_pos, (int)cub->player.y_pos,
+	// 	COLOR_RED);
+	// mlx_put_image_to_window(cub->mlx, cub->win, cub->img.img, 0, 0);
 }

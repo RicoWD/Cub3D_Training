@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 11:50:06 by erpascua          #+#    #+#             */
-/*   Updated: 2025/11/28 02:17:03 by ubuntu           ###   ########.fr       */
+/*   Updated: 2025/12/02 02:12:28 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <mlx.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <math.h>
 
 
 # ifdef __APPLE__
@@ -62,10 +63,14 @@
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
 
-# define COLOR_RED 0x00FF0000
-# define COLOR_WHITE 0x00FFFFFF
-# define COLOR_BLACK 0x00000000
-# define COLOR_GOLD 0x00FFD700
+# define TILE_SIZE 64
+
+# define COLOR_SKY 0x0087CEEB
+# define COLOR_FLOOR 0x00654321
+# define COLOR_WALL_NS 0x008B4513
+# define COLOR_WALL_EW 0x00CD853F
+
+# define MOVE_SPEED 5
 
 # define FOV_ANGLE (60.0 * M_PI / 180.0)
 
@@ -97,10 +102,10 @@ typedef struct	s_cub
 typedef struct s_ray
 {
     double	distance;
-    bool	hit_wall;      // 1 si on a touché un mur, 0 sinon
-    double	hit_x;         // Position X du hit
-    double	hit_y;         // Position Y du hit
-    int		side;          // Quel côté du mur (N/S/E/W)
+    bool	hit_wall;
+    double	hit_x;
+    double	hit_y;
+    int		side;
 }               t_ray;
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
@@ -108,6 +113,10 @@ void	draw_square(t_img *img, int x, int y, int size, int color);
 void	draw_map(t_cub *cub);
 double	draw_fov(t_cub *cub);
 void	render(t_cub *cub);
+
+void	render_3d(t_cub *cub);
+void	draw_column(t_cub *cub, t_ray *ray, int x);
+t_ray	raycaster(t_cub *cub, double ray_angle);
 
 int		key_press(int keycode, t_cub *cub);
 int		close_window(t_cub *cub);
